@@ -1,0 +1,16 @@
+org\avo\newtest\Event\GuiSave.class
+org\avo\newtest\TabCompleter\AvonewTabCompleter.class
+org\avo\newtest\config\DataConfig.class
+org\avo\newtest\Event\FlyJoinListener.class
+org\avo\newtest\Command\RandomItemCommand.class
+org\avo\newtest\Command\HelloCommand.class
+org\avo\newtest\Command\RandomCommand.class
+org\avo\newtest\config\InvConfig.class
+org\avo\newtest\Newtest.class
+org\avo\newtest\Command\AvonewCommand.class
+org\avo\newtest\Command\GuiCommand.class
+org\avo\newtest\config\GuiConfig.class
+org\avo\newtest\Event\InvSave.class
+org\avo\newtest\Command\FlyCommand.class
+org\avo\newtest\Command\InvCommand.class
+org\avo\newtest\Event\FlyJoinListener$1.class

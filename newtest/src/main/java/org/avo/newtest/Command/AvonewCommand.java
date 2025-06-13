@@ -9,12 +9,14 @@ public class AvonewCommand implements CommandExecutor {
 
     private final RandomCommand randomCommand;
     private final RandomItemCommand randomItemCommand;
-    private final GuiCommand guiCommand; //เตรียมคำสั่ง GUI
+    private final GuiCommand guiCommand;
+    private final InvCommand invCommand;
 
     public AvonewCommand(GuiCommand guiCommand, Newtest plugin) {
-        this.randomCommand = new RandomCommand(); //เตรียมคำสั่งสุ่ม
+        this.randomCommand = new RandomCommand();
         this.randomItemCommand = new RandomItemCommand();
-        this.guiCommand = guiCommand;//เตรียมคำสั่งสุ่มไอเท็ม
+        this.guiCommand = guiCommand;
+        this.invCommand = new InvCommand(plugin); // สร้างตรงนี้เลย
     }
 
     @Override
@@ -24,14 +26,18 @@ public class AvonewCommand implements CommandExecutor {
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("random")) {
-            return randomCommand.onCommand(sender, command, label, args);
-        } else if (args[0].equalsIgnoreCase("randomore")) {
-            return randomItemCommand.onCommand(sender, command, label, args);
-        } else if (args[0].equalsIgnoreCase("gui")) {
-            return guiCommand.onCommand(sender, command, label, args);
+        switch (args[0].toLowerCase()) {
+            case "random":
+                return randomCommand.onCommand(sender, command, label, args);
+            case "randomore":
+                return randomItemCommand.onCommand(sender, command, label, args);
+            case "gui":
+                return guiCommand.onCommand(sender, command, label, args);
+            case "inv":
+                return invCommand.onCommand(sender, command, label, args);
+            default:
+                sender.sendMessage("§cคำสั่งไม่ถูกต้อง: " + args[0]);
+                return true;
         }
-        sender.sendMessage("§cคำสั่งไม่ถูกต้อง" + args[0]);
-        return true;
     }
 }

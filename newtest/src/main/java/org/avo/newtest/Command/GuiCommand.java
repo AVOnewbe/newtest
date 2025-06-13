@@ -28,7 +28,7 @@ public class GuiCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        Inventory gui = createInventory(null, 27, "§aฉ§bล§eา§dม");
+        Inventory gui = createInventory(null, 54, "§aฉ§bล§eา§dม");
 
         ItemStack[] items = guiConfig.loadInventory();
         gui.setContents(items);

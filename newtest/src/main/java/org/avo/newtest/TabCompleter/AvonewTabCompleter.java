@@ -13,7 +13,7 @@ public class AvonewTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            List<String> subcommands = List.of("random", "randomore", "gui");
+            List<String> subcommands = List.of("random", "randomore", "gui", "inv");
             List<String> matches = new ArrayList<>();
 
             String input = args[0].toLowerCase();

@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
@@ -25,9 +26,12 @@ public class FlyJoinListener implements Listener {
         player.setAllowFlight(wasFlying);
 
         if (wasFlying) {
-            player.sendMessage("§b[INFO] §aบินได้นะ");
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    player.sendMessage("§b[INFO] §aบินได้นะ");
+                }
+            }.runTaskLater(plugin, 60);
         }
-
     }
-
 }

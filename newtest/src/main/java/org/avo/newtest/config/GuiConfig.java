@@ -16,6 +16,7 @@ public class GuiConfig {
 
     public GuiConfig(JavaPlugin plugin) {
         this.plugin = plugin; //รับตัวแปร plugin จากคลาสหลัก
+
         //gui.yml
         file = new File(plugin.getDataFolder(), "gui.yml");
 
@@ -24,6 +25,12 @@ public class GuiConfig {
         }
 
         this.config = YamlConfiguration.loadConfiguration(file);
+
+        // ตรวจสอบว่ามีคีย์ "inventory" หรือไม่ ถ้าไม่มีให้สร้าง
+        if (!config.contains("inventory")) {
+            config.createSection("inventory");
+            save(); // บันทึกการเปลี่ยนแปลง
+        }
     }
 
     public void saveInventory(ItemStack[] contents) {
@@ -34,21 +41,26 @@ public class GuiConfig {
                 config.set("inventory." + i, item);
             }
         }
+        save();
+    }
 
+    public ItemStack[] loadInventory() {
+        ItemStack[] items = new ItemStack[54];
+
+        if (config.contains("inventory")) {
+            for (String key : config.getConfigurationSection("inventory").getKeys(false)) {
+                int slot = Integer.parseInt(key);
+                items[slot] = config.getItemStack("inventory." + key);
+            }
+        }
+        return items;
+    }
+
+    private void save() {
         try {
             config.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public ItemStack[] loadInventory() {
-        ItemStack[] items = new ItemStack[54];
-        for (String key : config.getConfigurationSection("inventory").getKeys(false)) {
-            int slot = Integer.parseInt(key);
-            items[slot] = config.getItemStack("inventory." + key);
-        }
-        return items;
-    }
-
 }
