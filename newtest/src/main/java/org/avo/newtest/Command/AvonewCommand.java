@@ -12,11 +12,11 @@ public class AvonewCommand implements CommandExecutor {
     private final GuiCommand guiCommand;
     private final InvCommand invCommand;
 
-    public AvonewCommand(GuiCommand guiCommand, Newtest plugin) {
+    public AvonewCommand(GuiCommand guiCommand, InvCommand invCommand, Newtest plugin) {
         this.randomCommand = new RandomCommand();
         this.randomItemCommand = new RandomItemCommand();
         this.guiCommand = guiCommand;
-        this.invCommand = new InvCommand(plugin); // สร้างตรงนี้เลย
+        this.invCommand = invCommand;
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.avo.newtest.Event.GuiSave;
 import org.avo.newtest.Event.InvSave;
 import org.avo.newtest.TabCompleter.AvonewTabCompleter;
 import org.avo.newtest.config.DataConfig;
-import org.avo.newtest.config.InvConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Newtest extends JavaPlugin {
@@ -15,29 +14,32 @@ public final class Newtest extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // โหลดไฟล์ config
+
+        // โหลด config
         dataConfig = new DataConfig(this);
 
-        //
+        // คำสั่งตรง
         HelloCommand helloCommand = new HelloCommand();
+        this.getCommand("hello").setExecutor(helloCommand);
+
         FlyCommand flyCommand = new FlyCommand(this);
+        this.getCommand("fly").setExecutor(flyCommand);
+        this.getCommand("feed").setExecutor(flyCommand);
+        this.getCommand("havo").setExecutor(flyCommand);
 
-        getCommand("hello").setExecutor(helloCommand);
-        getCommand("fly").setExecutor(flyCommand);
-        getCommand("feed").setExecutor(flyCommand);
-        getCommand("havo").setExecutor(flyCommand);
-
-        // คำสั่งรวม /avonew
+        // เตรียมคำสั่งย่อย
         GuiCommand guiCommand = new GuiCommand(this);
-        AvonewCommand avonewCommand = new AvonewCommand(guiCommand, this);
+        InvCommand invCommand = new InvCommand(this); // สำคัญมาก
 
-        getCommand("avonew").setExecutor(avonewCommand);
-        getCommand("avonew").setTabCompleter(new AvonewTabCompleter());
+        // คำสั่งหลัก /avonew
+        AvonewCommand avonewCommand = new AvonewCommand(guiCommand, invCommand, this);
+        this.getCommand("avonew").setExecutor(avonewCommand);
+        this.getCommand("avonew").setTabCompleter(new AvonewTabCompleter());
 
-        // ลงทะเบียน event
+        // ลงทะเบียนอีเวนต์
         getServer().getPluginManager().registerEvents(new FlyJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new GuiSave(guiCommand), this);
-        getServer().getPluginManager().registerEvents(new InvSave(new InvConfig(this)), this);
+        getServer().getPluginManager().registerEvents(new InvSave(invCommand.getInvConfig()), this); // ใช้ config จาก invCommand
     }
 
     @Override
