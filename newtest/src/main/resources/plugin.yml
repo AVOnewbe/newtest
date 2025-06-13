@@ -1,0 +1,24 @@
+name: newtest
+version: 2
+main: org.avo.newtest.Newtest
+api-version: 1.20
+commands:
+  hello:
+    description: ทักทาย
+    usage: /hello
+  fly:
+    description: เปิด/ปิดการบิน
+    usage: /fly
+  feed:
+    description: เติมอาหารให้เต็ม
+  havo:
+    description: เติมเลือด
+
+  avonew:
+    description: คำสั่งหลัก
+    usage: /avonew
+
+permissions:
+  newtest.avo:
+    description: เรียกผู้กล้า
+    default: op
